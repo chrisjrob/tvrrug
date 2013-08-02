@@ -37,6 +37,7 @@ rodW = (m8rod + shell) * 2;
 demo=0;
 four=1;
 raft=1;	// add easy to cut support underneath
+squared=0; // for easier and faster printing
 
 if (four==0) {
 	rotate(demo == 1 ? [0,90,0] : [0,0,0]) {
@@ -75,18 +76,20 @@ difference() {
 		translate([0, -(m8rod + shell), 0])
 			cube(size=[m8rod + m8smooth, rodW, smoothwidth]);
 
-                // Horizontal cylinder - old curved version
-		// translate([m8rod + m8smooth, rodW / 2, smoothwidth / 2 + 7]) {
-		// 	rotate([90,0,0]) {
-		// 		cylinder(r = m8smooth + shell, h = rodW);
-                //         }
-                // }
-
-                // Horizontal cylinder - cuboid version for easier printing
-		translate([m8rod -shell, rodW / 2, 0]) {
-			rotate([90,0,0]) {
-                                cube( size = [ 2 * (m8smooth + shell), 2 * (m8smooth + shell), rodW]);
-                        }
+                if (squared==0) {
+                    // Horizontal cylinder - old curved version
+                    translate([m8rod + m8smooth, rodW / 2, smoothwidth / 2]) {
+                            rotate([90,0,0]) {
+                                    cylinder(r = m8smooth + shell, h = rodW);
+                            }
+                    }
+                } else {
+                    // Horizontal cylinder - cuboid version for easier printing
+                    translate([m8rod -shell, rodW / 2, 0]) {
+                            rotate([90,0,0]) {
+                                    cube( size = [ 2 * (m8smooth + shell), 2 * (m8smooth + shell), rodW]);
+                            }
+                    }
                 }
 	}
 
